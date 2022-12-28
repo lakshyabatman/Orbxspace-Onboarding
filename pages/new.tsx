@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { AvatarUpload } from '../components/AvatarUpload';
 import { newCommunityInterface } from '../types/newCommunity';
 import { PlusCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 const { TextArea } = Input;
 
@@ -10,6 +11,14 @@ const NewPage = () => {
   const [avatar, setAvatar] = useState<string | null>(null);
   const [formData, setFormData] = useState<newCommunityInterface | null>(null);
   const [step, setStep] = useState(0);
+
+  const router = useRouter();
+
+  const createCommunity = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    localStorage.removeItem('formData');
+    router.push('/community/1');
+  };
 
   useEffect(() => {
     const data = localStorage.getItem('formData');
@@ -190,7 +199,7 @@ const NewPage = () => {
             type="primary"
             className="w-96 h-12 text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none mx-auto mt-12"
             onClick={() => {
-              formData.channels.length > 0 ? console.log('creating community') : alert('Please add a channel');
+              formData.channels.length > 0 ? createCommunity() : alert('Please add a channel');
               localStorage.setItem('formData', JSON.stringify(formData));
             }}
           >
