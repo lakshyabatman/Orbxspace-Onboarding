@@ -175,11 +175,27 @@ const NewPage = () => {
               type="text"
               className="flex items-center"
               icon={<PlusCircleOutlined />}
-              onClick={() => setFormData({ ...formData, channels: [...formData.channels, { name: '', type: 'chat' }] })}
+              onClick={() => {
+                if (formData.channels[formData.channels.length - 1].name === '') {
+                  alert('Please fill the previous channel');
+                  return;
+                }
+                setFormData({ ...formData, channels: [...formData.channels, { name: '', type: 'chat' }] });
+              }}
             >
               Add Channel
             </Button>
           </div>
+          <Button
+            type="primary"
+            className="w-96 h-12 text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none mx-auto mt-12"
+            onClick={() => {
+              formData.channels.length > 0 ? setStep(3) : alert('Please add a channel');
+              localStorage.setItem('formData', JSON.stringify(formData));
+            }}
+          >
+            Next
+          </Button>
         </div>
       )}
     </div>
