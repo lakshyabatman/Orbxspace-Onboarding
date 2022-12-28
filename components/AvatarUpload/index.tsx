@@ -22,7 +22,7 @@ const beforeUpload = (file: RcFile) => {
   return isJpgOrPng && isLt2M;
 };
 
-export const AvatarUpload: React.FC = () => {
+export const AvatarUpload = ({ setAvatar }: { setAvatar: (avatar: string | null) => void }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -36,6 +36,7 @@ export const AvatarUpload: React.FC = () => {
       getBase64(info.file.originFileObj as RcFile, (url) => {
         setLoading(false);
         setImageUrl(url);
+        setAvatar(url);
       });
     }
   };
