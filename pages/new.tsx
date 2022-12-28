@@ -88,15 +88,16 @@ const NewPage = () => {
             onChange={(e) => {
               setFormData({ ...formData, description: e.target.value });
             }}
-            autoSize={{ minRows: 12, maxRows: 6 }}
+            autoSize={{ minRows: 12, maxRows: 15 }}
             className="w-full mb-12"
+            value={formData.description || ''}
           />
           <Button
             type="primary"
             className="w-96 h-12 text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none mx-auto"
             onClick={() => {
-              formData.description !== '' ? setStep(1) : alert('Please enter a description');
-              console.log(formData);
+              formData.description !== '' ? setStep(2) : alert('Please enter a description');
+              localStorage.setItem('formData', JSON.stringify(formData));
             }}
           >
             Next
