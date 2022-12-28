@@ -23,12 +23,14 @@ const Home: NextPage = () => {
             </span>
           </div>
           <div className="mt-8">
-            <Button
-              type="primary"
-              className="w-[200px] h-[60px] text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none"
-            >
-              Get Started
-            </Button>
+            <a href="/auth">
+              <Button
+                type="primary"
+                className="w-[200px] h-[60px] text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none"
+              >
+                Get Started
+              </Button>
+            </a>
           </div>
         </div>
         <div className="ml-32">
