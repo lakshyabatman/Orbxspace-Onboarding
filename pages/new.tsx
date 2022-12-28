@@ -1,8 +1,8 @@
-import { Button, Input } from 'antd';
+import { Dropdown, Button, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { AvatarUpload } from '../components/AvatarUpload';
 import { newCommunityInterface } from '../types/newCommunity';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, DownOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
@@ -136,18 +136,36 @@ const NewPage = () => {
                 </div>
                 <div className="w-56">
                   <p className="mb-1 text-left">Channel Type</p>
-                  <select
-                    className="w-full h-12 border-none"
-                    onChange={(e) => {
-                      const newChannels = formData.channels;
-                      newChannels[index].type = e.target.value as 'chat' | 'feed';
-                      setFormData({ ...formData, channels: newChannels });
+                  <Dropdown
+                    menu={{
+                      items: [
+                        {
+                          key: 'chat',
+                          label: 'Chat',
+                          onClick: () => {
+                            const newChannels = formData.channels;
+                            newChannels[index].type = 'chat';
+                            setFormData({ ...formData, channels: newChannels });
+                          },
+                        },
+                        {
+                          key: 'feed',
+                          label: 'Feed',
+                          onClick: () => {
+                            const newChannels = formData.channels;
+                            newChannels[index].type = 'feed';
+                            setFormData({ ...formData, channels: newChannels });
+                          },
+                        },
+                      ],
                     }}
-                    value={formData.channels[index].type}
+                    className="w-full h-12 border-none"
                   >
-                    <option value="chat">Chat</option>
-                    <option value="voice">Voice</option>
-                  </select>
+                    <div className="flex items-center justify-between w-full h-12 px-4 bg-white border-none rounded-md">
+                      {channel.type === 'chat' ? 'Chat' : 'Feed'}
+                      <DownOutlined />
+                    </div>
+                  </Dropdown>
                 </div>
               </div>
             ))}
