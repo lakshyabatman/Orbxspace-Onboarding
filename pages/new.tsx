@@ -190,11 +190,11 @@ const NewPage = () => {
             type="primary"
             className="w-96 h-12 text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none mx-auto mt-12"
             onClick={() => {
-              formData.channels.length > 0 ? setStep(3) : alert('Please add a channel');
+              formData.channels.length > 0 ? console.log('creating community') : alert('Please add a channel');
               localStorage.setItem('formData', JSON.stringify(formData));
             }}
           >
-            Next
+            Create Community
           </Button>
         </div>
       )}
