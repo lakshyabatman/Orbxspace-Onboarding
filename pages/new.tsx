@@ -16,8 +16,9 @@ const NewPage = () => {
 
   const createCommunity = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
+    //in case of successful creation
     localStorage.removeItem('formData');
-    router.push('/community/1');
+    router.push('/community/1517587524875');
   };
 
   useEffect(() => {
@@ -50,8 +51,6 @@ const NewPage = () => {
         background: 'linear-gradient(51.28deg, #CFFAD6 34.21%, #F3E7F9 68.88%)',
       }}
     >
-      {/* make a loader */}
-
       {!formData && (
         <div className="flex flex-col items-center justify-center">
           <div className="w-32 h-32 border-b-2 border-gray-900 rounded-full animate-spin"></div>
