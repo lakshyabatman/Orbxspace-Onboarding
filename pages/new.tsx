@@ -2,6 +2,7 @@ import { Button, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { AvatarUpload } from '../components/AvatarUpload';
 import { newCommunityInterface } from '../types/newCommunity';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
@@ -19,7 +20,12 @@ const NewPage = () => {
         name: '',
         description: '',
         pfp: '',
-        channels: [],
+        channels: [
+          {
+            name: '',
+            type: 'chat',
+          },
+        ],
       });
     }
   }, []);
@@ -102,6 +108,60 @@ const NewPage = () => {
           >
             Next
           </Button>
+        </div>
+      )}
+      {step === 2 && formData && (
+        <div className="flex flex-col w-[720px]">
+          <div className="mb-12 text-center">
+            <p className="text-5xl font-semibold text-[#69248A] mb-1">Create Channels</p>
+            <p className="text-[24px] font-light mb-8">Setup your community channels</p>
+          </div>
+          <div className="mb-8">
+            {formData.channels.map((channel, index) => (
+              <div className="flex mb-4 align-middle">
+                <div className="w-full mr-12">
+                  <div className="mb-1">
+                    <p className="text-left">Channel Name</p>
+                  </div>
+                  <Input
+                    placeholder="Eg. Crypto Club"
+                    onChange={(e) => {
+                      const newChannels = formData.channels;
+                      newChannels[index].name = e.target.value;
+                      setFormData({ ...formData, channels: newChannels });
+                    }}
+                    value={channel.name}
+                    className="h-12 mb-4 border-none "
+                  />
+                </div>
+                <div className="w-56">
+                  <p className="mb-1 text-left">Channel Type</p>
+                  <select
+                    className="w-full h-12 border-none"
+                    onChange={(e) => {
+                      const newChannels = formData.channels;
+                      newChannels[index].type = e.target.value as 'chat' | 'feed';
+                      setFormData({ ...formData, channels: newChannels });
+                    }}
+                    value={formData.channels[index].type}
+                  >
+                    <option value="chat">Chat</option>
+                    <option value="voice">Voice</option>
+                  </select>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="w-full">
+            <Button
+              type="text"
+              className="flex items-center"
+              icon={<PlusCircleOutlined />}
+              onClick={() => setFormData({ ...formData, channels: [...formData.channels, { name: '', type: 'chat' }] })}
+            >
+              Add Channel
+            </Button>
+          </div>
         </div>
       )}
     </div>
