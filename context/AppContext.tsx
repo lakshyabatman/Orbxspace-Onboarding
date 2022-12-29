@@ -31,7 +31,7 @@ export enum ChannelType {
     };
     result: string;
   }
-  
+
   
 
 export interface CreateChannelRequest {
@@ -236,3 +236,5 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         {children}
     </AppContext.Provider>)
 }
+
+export default AppProvider
