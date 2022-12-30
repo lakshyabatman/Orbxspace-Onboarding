@@ -44,18 +44,15 @@ const NewPage: NextPage = () => {
   }, [avatar]);
 
   const createCommunity = async () => {
-    await context?.createGroup(formData?.name ?? '', formData?.pfp ?? '', formData?.description ?? '');
-    await context?.createChannels(
-      formData?.channels?.map((channel) => {
-        return {
-          pfp: '',
-          name: channel.name,
-          description: '',
-          type: channel.type as ChannelType,
-        };
-      }) ?? []
-    );
-    console.log(formData);
+    console.log(formData)
+    await context?.createGroupWithChannels(formData?.name ?? '', formData?.pfp ?? '', formData?.description ?? '', formData?.channels?.map((channel) => {
+      return {
+        pfp: '',
+        name: channel.name,
+        description: '',
+        type: channel.type as ChannelType,
+      };
+    }) ?? [])
     localStorage.removeItem('formData');
     router.push('/community');
   };
