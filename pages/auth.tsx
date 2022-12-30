@@ -24,11 +24,9 @@ const AuthPage = () => {
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <Spin
-            tip="Loading"
             size="large"
-          >
-            <div className="text-center" />
-          </Spin>
+            tip={'Loading'}
+          />
         </div>
       ) : (
         <div className="px-8 py-8 bg-white min-w-[720px]">
