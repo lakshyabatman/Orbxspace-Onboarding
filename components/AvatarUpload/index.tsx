@@ -3,6 +3,7 @@ import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import Image from 'next/image';
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -57,10 +58,11 @@ export const AvatarUpload = ({ setAvatar }: { setAvatar: (avatar: string | null)
         onChange={handleChange}
       >
         {imageUrl ? (
-          <img
+          <Image
             src={imageUrl}
             alt="avatar"
-            style={{ width: '100%' }}
+            width="100%"
+            height="100%"
           />
         ) : (
           uploadButton

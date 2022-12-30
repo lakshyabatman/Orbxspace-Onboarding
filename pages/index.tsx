@@ -4,19 +4,40 @@ import { Button } from 'antd';
 import { AppContext } from '../context/AppContext';
 import { useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
   const context = useContext(AppContext);
 
+  const router = useRouter();
+
+  
   return (
     <div
-      className="flex flex-col items-center justify-center h-screen"
+      className=" min-h-screen"
       style={{
         background: 'linear-gradient(51.28deg, #CFFAD6 34.21%, #F3E7F9 68.88%)',
       }}
     >
-      <div></div>
-      <div className="flex px-16 ">
+      <div className='w-full flex justify-between items-center container mx-auto  py-3'>
+        <Image src="/logo.png" alt='logo' width="200" height="100" />
+        <div className='flex justify-between items-center'>
+            <Button
+              type="default"
+              className='mr-3'
+              onClick={() => router.push("./forum")}
+            >
+              Community
+            </Button>
+            <Button
+              type="default"
+            >
+              Documentation
+            </Button>
+              
+        </div>
+      </div>
+      <div className="flex container mx-auto mt-10 ">
         {/* Add text on left and image on right */}
         <div className="flex flex-col justify-between w-[530px]">
           <div>
@@ -44,6 +65,7 @@ const Home: NextPage = () => {
             alt={''}
             width={639}
             height={554}
+            className="md:hidden lg:block"
           />
         </div>
       </div>
