@@ -82,7 +82,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState<Profile | null>(null);
 
-  const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   const [currentNetwork, setCurrentNetwork] = useState<NetworkType | null>(null);
 
