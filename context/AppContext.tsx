@@ -63,10 +63,16 @@ declare global {
 }
 
 interface IAppContext {
+  Loading: boolean;
   currentUser: Profile | null;
   connectWallet: (network: NetworkType) => Promise<void>;
   getOnboardigDetails: () => { groupId: string; code: string };
-  createGroupWithChannels: (name: string, php: string, description: string,createChannelRequest: CreateChannelRequest[]) => Promise<void>
+  createGroupWithChannels: (
+    name: string,
+    php: string,
+    description: string,
+    createChannelRequest: CreateChannelRequest[]
+  ) => Promise<void>;
 }
 
 export const AppContext = createContext<IAppContext | null>(null);
@@ -76,7 +82,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState<Profile | null>(null);
 
-  const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   const [currentNetwork, setCurrentNetwork] = useState<NetworkType | null>(null);
 
@@ -117,41 +123,44 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     isConnected();
   }, []);
 
-
-
-  const createGroupWithChannels = async (name: string, pfp: string, description: string, createChannelRequest: CreateChannelRequest[] ) => {
+  const createGroupWithChannels = async (
+    name: string,
+    pfp: string,
+    description: string,
+    createChannelRequest: CreateChannelRequest[]
+  ) => {
     try {
-        setLoading(true);
-        let res = await orbis.createGroup({
-          pfp,
-          name,
-          description,
-        });
-        if (res.status == 200) {
-            const group = res.doc;
-            for (let createChannel of createChannelRequest) {
-                const res = await orbis.createChannel(group, {
-                  group_id: group,
-                  pfp: createChannel.pfp,
-                  name: createChannel.name,
-                  description: createChannel.description,
-                  type: createChannel.type,
-                });
-                if (res.status != 200) {
-                  throw new Error(res.error);
-                }
-              }
-              setGroupId(group)
-            console.log("Group with channels are created!")
-        } else {
-          throw new Error(res.error);
+      setLoading(true);
+      let res = await orbis.createGroup({
+        pfp,
+        name,
+        description,
+      });
+      if (res.status == 200) {
+        const group = res.doc;
+        for (let createChannel of createChannelRequest) {
+          const res = await orbis.createChannel(group, {
+            group_id: group,
+            pfp: createChannel.pfp,
+            name: createChannel.name,
+            description: createChannel.description,
+            type: createChannel.type,
+          });
+          if (res.status != 200) {
+            throw new Error(res.error);
+          }
         }
-      } catch (err) {
-        // display notification
-      } finally {
-        setLoading(false);
+        setGroupId(group);
+        console.log('Group with channels are created!');
+      } else {
+        throw new Error(res.error);
       }
-  }
+    } catch (err) {
+      // display notification
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getOnboardigDetails = () => {
     if (!groupId) throw new Error('Group should be created first');
@@ -190,10 +199,11 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        Loading,
         currentUser,
         getOnboardigDetails,
         connectWallet,
-        createGroupWithChannels
+        createGroupWithChannels,
       }}
     >
       {children}
