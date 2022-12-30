@@ -1,27 +1,26 @@
+import { NextPage } from 'next';
 import { Dropdown, Button, Input } from 'antd';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AvatarUpload } from '../components/AvatarUpload';
 import { newCommunityInterface } from '../types/newCommunity';
 import { PlusCircleOutlined, DownOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
+import { AppContext, ChannelType } from '../context/AppContext';
 
 const { TextArea } = Input;
 
-const NewPage = () => {
+const NewPage: NextPage = () => {
+  const context = useContext(AppContext);
+  const router = useRouter();
+
   const [avatar, setAvatar] = useState<string | null>(null);
   const [formData, setFormData] = useState<newCommunityInterface | null>(null);
   const [step, setStep] = useState(0);
 
-  const router = useRouter();
-
-  const createCommunity = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //in case of successful creation
-    localStorage.removeItem('formData');
-    router.push('/community/1517587524875');
-  };
-
   useEffect(() => {
+    if (!context?.currentUser) {
+      router.push('/auth');
+    }
     const data = localStorage.getItem('formData');
     if (data) {
       setFormData(JSON.parse(data));
@@ -33,7 +32,7 @@ const NewPage = () => {
         channels: [
           {
             name: '',
-            type: 'chat',
+            type: ChannelType.CHAT,
           },
         ],
       });
@@ -43,6 +42,23 @@ const NewPage = () => {
   useEffect(() => {
     formData && setFormData({ ...formData, pfp: avatar });
   }, [avatar]);
+
+  const createCommunity = async () => {
+    await context?.createGroup(formData?.name ?? '', formData?.pfp ?? '', formData?.description ?? '');
+    await context?.createChannels(
+      formData?.channels?.map((channel) => {
+        return {
+          pfp: '',
+          name: channel.name,
+          description: '',
+          type: channel.type as ChannelType,
+        };
+      }) ?? []
+    );
+    console.log(formData);
+    localStorage.removeItem('formData');
+    router.push('/community');
+  };
 
   return (
     <div

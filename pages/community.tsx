@@ -1,10 +1,10 @@
-import { Input } from 'antd';
-import { useRouter } from 'next/router';
+import { AppContext, ChannelType } from '../context/AppContext';
+import { useContext, useEffect, useState } from 'react';
+import { CopyBlock, a11yLight } from 'react-code-blocks';
 
 const CommunityPage = () => {
-  const router = useRouter();
-  const { cid } = router.query;
-
+  const context = useContext(AppContext);
+  const group = context?.getOnboardigDetails();
   return (
     <div
       className="flex flex-col items-center justify-center h-screen"
@@ -24,16 +24,20 @@ const CommunityPage = () => {
         </div>
         <div className="w-full">
           <div className="flex items-center px-8 w-full h-16 bg-white border border-gray-300 rounded-md text-[20px] text-gray-400">
-            <p>{cid}</p>
+            <p>{group?.groupId}</p>
           </div>
         </div>
         <div className="w-full mt-12 mb-1">
-          <p className="text-left">Link</p>
+          <p className="text-left">Code</p>
         </div>
         <div className="w-full">
-          <div className="flex items-center px-8 w-full h-16 bg-white border border-gray-300 rounded-md text-[20px] text-gray-400">
-            <p>{cid}</p>
-          </div>
+          <CopyBlock
+            text={group?.code ?? ''}
+            language="html"
+            showLineNumbers={true}
+            theme={a11yLight}
+            wrapLongLines={true}
+          />
         </div>
       </div>
     </div>
