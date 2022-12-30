@@ -1,11 +1,16 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { Button } from 'antd';
+import { AppContext } from '../context/AppContext';
+import { useContext } from 'react';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
+  const context = useContext(AppContext);
+
   return (
     <div
-      className="h-screen flex flex-col justify-center items-center"
+      className="flex flex-col items-center justify-center h-screen"
       style={{
         background: 'linear-gradient(51.28deg, #CFFAD6 34.21%, #F3E7F9 68.88%)',
       }}
@@ -23,14 +28,14 @@ const Home: NextPage = () => {
             </span>
           </div>
           <div className="mt-8">
-            <a href="/auth">
+            <Link href={context?.currentUser ? '/new' : '/auth'}>
               <Button
                 type="primary"
                 className="w-[200px] h-[60px] text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none"
               >
                 Get Started
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="ml-32">
