@@ -164,13 +164,14 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   const getOnboardigDetails = () => {
     if (!groupId) throw new Error('Group should be created first');
+
     return {
       groupId: groupId,
-      code: `
-            <div id="orbis-framework" data-app-context="${groupId}"></div>
-
-            <script src="https://orbis-framework.s3.amazonaws.com/main.js"></script>
-            `,
+      code:
+        '<div id="orbis-framework" data-app-context=' +
+        groupId +
+        '></div>' +
+        '\n<script src="https://orbis-framework.s3.amazonaws.com/main.js"></script>',
     };
   };
 

@@ -1,6 +1,6 @@
 import { AppContext, ChannelType } from '../context/AppContext';
 import { useContext, useEffect, useState } from 'react';
-import { CopyBlock, a11yLight } from 'react-code-blocks';
+import { CopyBlock, a11yLight, atomOneLight } from 'react-code-blocks';
 
 const CommunityPage = () => {
   const context = useContext(AppContext);
@@ -34,9 +34,10 @@ const CommunityPage = () => {
           <CopyBlock
             text={group?.code ?? ''}
             language="html"
-            showLineNumbers={true}
-            theme={a11yLight}
+            theme={atomOneLight}
             wrapLongLines={true}
+            showLineNumbers={false}
+            codeBlock
           />
         </div>
       </div>
