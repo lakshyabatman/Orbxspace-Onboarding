@@ -1,6 +1,18 @@
 import { Button } from 'antd';
+import { AppContext, NetworkType } from '../context/AppContext';
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const AuthPage = () => {
+  const context = useContext(AppContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (context?.currentUser) {
+      router.push('/new');
+    }
+  }, [context?.currentUser]);
+
   return (
     <div
       className="flex flex-col items-center justify-center h-screen"
@@ -16,29 +28,27 @@ const AuthPage = () => {
         </div>
         <div className="flex flex-col items-center justify-center py-8">
           <Button
-            onClick={() => {
-              console.log('metamask');
-            }}
+            onClick={() => context?.connectWallet(NetworkType.Ethereum)}
             className="w-96 h-16 bg-[#B45008] text-white mb-4 text-3xl"
           >
             Metamask
           </Button>
           <Button
             onClick={() => {
-              console.log('metamask');
+              context?.connectWallet(NetworkType.Solana);
             }}
             className="w-96 h-16 bg-[#201191] text-white mb-4 text-3xl"
           >
             Phantom
           </Button>
-          <Button
+          {/* <Button
             onClick={() => {
               console.log('metamask');
             }}
             className="w-96 h-16 bg-[#094296] text-white mb-4 text-3xl"
           >
             Wallet Connect
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
