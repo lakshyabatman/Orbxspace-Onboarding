@@ -44,15 +44,20 @@ const NewPage: NextPage = () => {
   }, [avatar]);
 
   const createCommunity = async () => {
-    console.log(formData)
-    await context?.createGroupWithChannels(formData?.name ?? '', formData?.pfp ?? '', formData?.description ?? '', formData?.channels?.map((channel) => {
-      return {
-        pfp: '',
-        name: channel.name,
-        description: '',
-        type: channel.type as ChannelType,
-      };
-    }) ?? [])
+    console.log(formData);
+    await context?.createGroupWithChannels(
+      formData?.name ?? '',
+      formData?.pfp ?? '',
+      formData?.description ?? '',
+      formData?.channels?.map((channel) => {
+        return {
+          pfp: '',
+          name: channel.name,
+          description: '',
+          type: channel.type as ChannelType,
+        };
+      }) ?? []
+    );
     localStorage.removeItem('formData');
     router.push('/community');
   };
@@ -139,7 +144,10 @@ const NewPage: NextPage = () => {
           </div>
           <div className="mb-8">
             {formData.channels.map((channel, index) => (
-              <div className="flex mb-4 align-middle">
+              <div
+                className="flex mb-4 align-middle"
+                key={index}
+              >
                 <div className="w-full mr-12">
                   <div className="mb-1">
                     <p className="text-left">Channel Name</p>
