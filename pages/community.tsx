@@ -2,11 +2,27 @@ import { AppContext, ChannelType } from '../context/AppContext';
 import { useContext, useEffect, useState } from 'react';
 import { CopyBlock, a11yLight, atomOneLight } from 'react-code-blocks';
 import { Spin } from 'antd';
+import { useRouter } from 'next/router';
 
 const CommunityPage = () => {
   const context = useContext(AppContext);
-  const group = context?.getOnboardigDetails();
+
+  const router = useRouter()
+  
+  
   const loading = context?.Loading;
+
+
+  const [group, setGroup] = useState<{groupId: string, code: string} | null>(null);
+
+  useEffect(() => {
+    try {
+      const g = context?.getOnboardigDetails();
+      setGroup(g ?? null)
+    }catch(e) {
+      router.push("/")
+    }
+  })
   return (
     <div
       className="flex flex-col items-center justify-center h-screen"
