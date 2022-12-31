@@ -61,8 +61,8 @@ export const AvatarUpload = ({ setAvatar }: { setAvatar: (avatar: string | null)
           <Image
             src={imageUrl}
             alt="avatar"
-            width="100%"
-            height="100%"
+            width="100"
+            height="100"
           />
         ) : (
           uploadButton
