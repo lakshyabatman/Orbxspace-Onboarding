@@ -17,6 +17,8 @@ const NewPage: NextPage = () => {
   const [formData, setFormData] = useState<newCommunityInterface | null>(null);
   const [step, setStep] = useState(0);
 
+  const loading = context?.Loading;
+
   useEffect(() => {
     if (!context?.currentUser) {
       router.push('/auth');
@@ -222,6 +224,7 @@ const NewPage: NextPage = () => {
               formData.channels.length > 0 ? createCommunity() : alert('Please add a channel');
               localStorage.setItem('formData', JSON.stringify(formData));
             }}
+            loading={loading}
           >
             Create Community
           </Button>
