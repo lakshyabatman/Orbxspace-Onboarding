@@ -32,8 +32,9 @@ const Home: NextPage = () => {
             </Button>
             <Button
               type="default"
+              
             >
-              Documentation
+              <Link target="_blank" href="https://nonstop-heart-099.notion.site/Orbxspace-3f12dff90f0948c394acad61b4fce77d" >Documentation</Link>
             </Button>
               
         </div>
@@ -49,13 +50,13 @@ const Home: NextPage = () => {
               Get your community up and running in a few clicks using Orbis
             </span>
           </div>
-          <div className="ml-32">
-            <Image
-              src="/forum.svg"
-              alt={''}
-              width={639}
-              height={554}
-            />
+          <div className="mt-8">
+            <Button
+              type="primary"
+              className="w-[200px] h-[60px] text-[24px] bg-gradient-to-r from-[#EF88D2] to-[#AF5CD6] border-none"
+            >
+              Get Started
+            </Button>
           </div>
         </div>
         <div className="ml-32">
