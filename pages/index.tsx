@@ -70,8 +70,8 @@ const Home: NextPage = () => {
             src="/landingPage.svg"
             alt={''}
             width={600}
-            height={512}
-            className="absolute right-0 md:hidden lg:block"
+            height={450}
+            className="absolute right-0 md:hidden lg:block h-96"
           />
         </div>
       </div>
