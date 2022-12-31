@@ -67,11 +67,11 @@ const Home: NextPage = () => {
         </div>
         <div className="ml-32">
           <Image
-            src="/forum.svg"
+            src="/landingPage.svg"
             alt={''}
-            width={639}
-            height={554}
-            className="md:hidden lg:block"
+            width={600}
+            height={512}
+            className="absolute right-0 md:hidden lg:block"
           />
         </div>
       </div>
