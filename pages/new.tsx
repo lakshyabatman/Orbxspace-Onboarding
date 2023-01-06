@@ -84,8 +84,20 @@ const NewPage: NextPage = () => {
             <p className="text-5xl font-semibold text-[#69248A] mb-1">Create Your Community</p>
             <p className="text-[24px] font-light mb-8">Give your community an identity</p>
           </div>
-          <AvatarUpload setAvatar={setAvatar} />
-          <div className="mt-12 mb-1 w-96">
+
+          <div className="mb-1 w-96">
+            <p className="text-left">Community pfp url</p>
+          </div>
+          <Input
+            placeholder="Eg. https://picsum.photos/200/300"
+            onChange={(e) => {
+              setFormData({ ...formData, pfp: e.target.value });
+            }}
+            className="h-12 mb-8 border-none w-96"
+            value={formData.pfp ? formData.pfp : ''}
+          />
+
+          <div className="mb-1 w-96">
             <p className="text-left">Community Name</p>
           </div>
           <Input
